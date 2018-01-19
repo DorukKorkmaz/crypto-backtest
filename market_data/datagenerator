@@ -1,0 +1,160 @@
+import time
+import datetime
+import calendar
+import requests
+import os
+from binance.client import Client
+
+
+def bitfinex_generator(currency, period, beginning_month, end_month):
+    file = open(currency + period, "w")
+    file.write("Date,Open,Close,High,Low,Volume\n")
+    if period == "1h" or period == "3h" or period == "6h" or period == "12h" or period == "1D":
+        for month in range(beginning_month, end_month):
+            start_date = "2017-" + str(month) + "-01"
+            end_date = "2017-" + str(month + 1) + "-01"
+            print(start_date, end_date)
+            start_timestamp = str(calendar.timegm(time.strptime(start_date, '%Y-%m-%d'))) + "000"
+            end_timestamp = str(calendar.timegm(time.strptime(end_date, '%Y-%m-%d'))) + "000"
+            url = "https://api.bitfinex.com/v2/candles/trade:" + str(
+                period) + ":t" + currency.upper() + "/hist?start=" + start_timestamp + "&end=" + end_timestamp + "&limit=1000&sort=1"
+            print(url)
+            request = str(requests.get(url).json())[2:-2]
+            request = request.replace("], [", "\n")
+            request = request.replace(" ", "")
+
+            for line in request.split('\n'):
+                old_date = line[0:(line.index(","))]
+                new_date = datetime.datetime.utcfromtimestamp(int(old_date[:-3])).strftime('%Y-%m-%d %H:%M:%S')
+                line = line.replace(old_date, new_date)
+                file.write(line + "\n")
+    elif period == "30m":
+        for month in range(beginning_month, end_month):
+            start_date = "2017-" + str(month) + "-01"
+            end_date = "2017-" + str(month) + "-15"
+            print(start_date, end_date)
+            start_timestamp = str(calendar.timegm(time.strptime(start_date, '%Y-%m-%d'))) + "000"
+            end_timestamp = str(calendar.timegm(time.strptime(end_date, '%Y-%m-%d'))) + "000"
+            url = "https://api.bitfinex.com/v2/candles/trade:" + str(
+                period) + ":t" + currency.upper() + "/hist?start=" + start_timestamp + "&end=" + end_timestamp + "&limit=1000&sort=1"
+            print(url)
+            request = str(requests.get(url).json())[2:-2]
+            request = request.replace("], [", "\n")
+            request = request.replace(" ", "")
+
+            for line in request.split('\n'):
+                old_date = line[0:(line.index(","))]
+                new_date = datetime.datetime.utcfromtimestamp(int(old_date[:-3])).strftime('%Y-%m-%d %H:%M:%S')
+                line = line.replace(old_date, new_date)
+                file.write(line + "\n")
+
+            start_date = "2017-" + str(month) + "-15"
+            end_date = "2017-" + str(month + 1) + "-01"
+            print(start_date, end_date)
+            start_timestamp = str(calendar.timegm(time.strptime(start_date, '%Y-%m-%d'))) + "000"
+            end_timestamp = str(calendar.timegm(time.strptime(end_date, '%Y-%m-%d'))) + "000"
+            url = "https://api.bitfinex.com/v2/candles/trade:" + str(
+                period) + ":t" + currency.upper() + "/hist?start=" + start_timestamp + "&end=" + end_timestamp + "&limit=1000&sort=1"
+            print(url)
+            request = str(requests.get(url).json())[2:-2]
+            request = request.replace("], [", "\n")
+            request = request.replace(" ", "")
+
+            for line in request.split('\n'):
+                old_date = line[0:(line.index(","))]
+                new_date = datetime.datetime.utcfromtimestamp(int(old_date[:-3])).strftime('%Y-%m-%d %H:%M:%S')
+                line = line.replace(old_date, new_date)
+                file.write(line + "\n")
+    elif period == "15m":
+        for month in range(beginning_month, end_month):
+            start_date = "2017-" + str(month) + "-01"
+            end_date = "2017-" + str(month) + "-10"
+            print(start_date, end_date)
+            start_timestamp = str(calendar.timegm(time.strptime(start_date, '%Y-%m-%d'))) + "000"
+            end_timestamp = str(calendar.timegm(time.strptime(end_date, '%Y-%m-%d'))) + "000"
+            url = "https://api.bitfinex.com/v2/candles/trade:" + str(
+                period) + ":t" + currency.upper() + "/hist?start=" + start_timestamp + "&end=" + end_timestamp + "&limit=1000&sort=1"
+            print(url)
+            request = str(requests.get(url).json())[2:-2]
+            request = request.replace("], [", "\n")
+            request = request.replace(" ", "")
+
+            for line in request.split('\n'):
+                old_date = line[0:(line.index(","))]
+                new_date = datetime.datetime.utcfromtimestamp(int(old_date[:-3])).strftime('%Y-%m-%d %H:%M:%S')
+                line = line.replace(old_date, new_date)
+                file.write(line + "\n")
+
+            start_date = "2017-" + str(month) + "-10"
+            end_date = "2017-" + str(month) + "-20"
+            print(start_date, end_date)
+            start_timestamp = str(calendar.timegm(time.strptime(start_date, '%Y-%m-%d'))) + "000"
+            end_timestamp = str(calendar.timegm(time.strptime(end_date, '%Y-%m-%d'))) + "000"
+            url = "https://api.bitfinex.com/v2/candles/trade:" + str(
+                period) + ":t" + currency.upper() + "/hist?start=" + start_timestamp + "&end=" + end_timestamp + "&limit=1000&sort=1"
+            print(url)
+            request = str(requests.get(url).json())[2:-2]
+            request = request.replace("], [", "\n")
+            request = request.replace(" ", "")
+
+            for line in request.split('\n'):
+                old_date = line[0:(line.index(","))]
+                new_date = datetime.datetime.utcfromtimestamp(int(old_date[:-3])).strftime('%Y-%m-%d %H:%M:%S')
+                line = line.replace(old_date, new_date)
+                file.write(line + "\n")
+
+            start_date = "2017-" + str(month) + "-20"
+            end_date = "2017-" + str(month + 1) + "-01"
+            print(start_date, end_date)
+            start_timestamp = str(calendar.timegm(time.strptime(start_date, '%Y-%m-%d'))) + "000"
+            end_timestamp = str(calendar.timegm(time.strptime(end_date, '%Y-%m-%d'))) + "000"
+            url = "https://api.bitfinex.com/v2/candles/trade:" + str(
+                period) + ":t" + currency.upper() + "/hist?start=" + start_timestamp + "&end=" + end_timestamp + "&limit=1000&sort=1"
+            print(url)
+            request = str(requests.get(url).json())[2:-2]
+            request = request.replace("], [", "\n")
+            request = request.replace(" ", "")
+
+            for line in request.split('\n'):
+                old_date = line[0:(line.index(","))]
+                new_date = datetime.datetime.utcfromtimestamp(int(old_date[:-3])).strftime('%Y-%m-%d %H:%M:%S')
+                line = line.replace(old_date, new_date)
+                file.write(line + "\n")
+
+    file.close()
+
+def binance_generator(currency, period, start, end):
+    newpath = '/Users/dorukkorkmaz/Documents/GitHub/coinbot/market_data/' + currency
+    if not os.path.exists(newpath):
+        os.makedirs(newpath)
+    file = open(currency + "/" + period + "?" + start + "?" + end + ".txt", "w")
+    file.write("Date,Open,High,Low,Close,Volume\n")
+    f = open("/Users/dorukkorkmaz/Documents/GitHub/coinbot/binance_bot/account_info.txt", 'r')
+    message = f.read().split("\n")
+    client = Client(message[0], message[1])
+    klines = client.get_historical_klines(currency, period, start, end)
+    request = str(klines)[2:-2]
+    request = request.replace("], [", "\n")
+    request = request.replace(" ", "")
+    request = request.replace("'", "")
+
+    for line in request.split('\n'):
+        old_date = line[0:(line.index(","))]
+        new_date = datetime.datetime.utcfromtimestamp(int(old_date[:-3])).strftime('%Y-%m-%d %H:%M:%S')
+        line = line.replace(old_date, new_date)
+        file.write(line + "\n")
+
+coins = ['ETHBTC', 'LTCBTC', 'BNBBTC', 'NEOBTC', 'BCCBTC', 'GASBTC', 'HSRBTC', 'MCOBTC', 'WTCBTC', 'LRCBTC',
+         'QTUMBTC', 'YOYOBTC', 'OMGBTC', 'ZRXBTC', 'STRATBTC', 'SNGLSBTC', 'BQXBTC', 'KNCBTC', 'FUNBTC', 'SNMBTC',
+         'IOTABTC', 'LINKBTC', 'XVGBTC', 'CTRBTC', 'SALTBTC', 'MDABTC', 'MTLBTC', 'SUBBTC', 'EOSBTC', 'SNTBTC',
+         'ETCBTC', 'MTHBTC', 'ENGBTC', 'DNTBTC', 'ZECBTC', 'BNTBTC', 'ASTBTC', 'DASHBTC', 'OAXBTC', 'ICNBTC',
+         'BTGBTC', 'XRPBTC', 'EVXBTC', 'REQBTC', 'VIBBTC', 'TRXBTC', 'POWRBTC', 'ARKBTC', 'MODBTC', 'ENJBTC',
+         'STORJBTC', 'VENBTC', 'KMDBTC', 'RCNBTC', 'NULSBTC', 'RDNBTC', 'XMRBTC', 'DLTBTC', 'AMBBTC', 'BATBTC',
+         'BCPTBTC', 'ARNBTC', 'GVTBTC', 'CDTBTC', 'GXSBTC', 'POEBTC', 'QSPBTC', 'BTSBTC', 'XZCBTC', 'LSKBTC', 'TNTBTC',
+         'FUELBTC', 'MANABTC', 'BCDBTC', 'DGDBTC', 'ADXBTC', 'ADABTC', 'PPTBTC', 'CMTBTC', 'XLMBTC', 'CNDBTC',
+         'LENDBTC', 'WABIBTC', 'TNBBTC', 'WAVESBTC', 'GTOBTC', 'ICXBTC', 'OSTBTC', 'ELFBTC', 'AIONBTC', 'NEBLBTC',
+         'BRDBTC', 'EDOBTC', 'WINGSBTC', 'NAVBTC', 'LUNBTC', 'TRIGBTC']
+
+for coin in coins:
+    print(coin)
+    binance_generator(coin, "1h", "09-01-2017", "01-01-2018")

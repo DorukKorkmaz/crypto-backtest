@@ -124,7 +124,6 @@ def bitfinex_generator(currency, period, beginning_month, end_month):
     file.close()
 
 def binance_generator(currency, period, start, end):
-    print(os.getcwd())
     newpath = 'market_data/' + currency
     if not os.path.exists(newpath):
         os.makedirs(newpath)

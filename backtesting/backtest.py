@@ -1,9 +1,7 @@
-from datetime import datetime
 import backtrader as bt
 import backtrader.feeds as btfeeds
 import backtrader.indicators as btind
-import numpy as np
-from backtesting import Strategy
+from backtesting import strategy
 
 
 #list of coins
@@ -23,7 +21,7 @@ for ma1 in range(5,25,2):
                     strategy_value = 0
                     for coin in coins:
                         data = btfeeds.GenericCSVData(
-                            dataname="/Users/dorukkorkmaz/Documents/GitHub/coinbot/market_data/" + coin + "/" +"1h?09-01-2017?01-01-2018.txt",
+                            dataname="market_data/" + coin + "/" +"1h?09-01-2017?01-01-2018.txt",
                             datetime=0,
                             open=1,
                             high=2,
@@ -48,7 +46,7 @@ for ma1 in range(5,25,2):
 
                         cerebro = bt.Cerebro()
                         cerebro.addstrategy(
-                            Strategy.AtrCrossStrategy,
+                            strategy.AtrCrossStrategy,
                             ma1_period = ma1,
                             ma2_period = ma2,
                             ma1_type = btind.SmoothedMovingAverage,
@@ -68,4 +66,3 @@ for ma1 in range(5,25,2):
                         print(default_value)
                         print(ma1, ma2, atr, "Simple Moving Average Crossover", strategy_value)
                         print(ma1, strategy_value)
-

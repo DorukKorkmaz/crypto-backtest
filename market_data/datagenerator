@@ -124,12 +124,13 @@ def bitfinex_generator(currency, period, beginning_month, end_month):
     file.close()
 
 def binance_generator(currency, period, start, end):
-    newpath = '/Users/dorukkorkmaz/Documents/GitHub/coinbot/market_data/' + currency
+    print(os.getcwd())
+    newpath = 'market_data/' + currency
     if not os.path.exists(newpath):
         os.makedirs(newpath)
-    file = open(currency + "/" + period + "?" + start + "?" + end + ".txt", "w")
+    file = open("market_data/"+currency + "/" + period + "?" + start + "?" + end + ".txt", "w")
     file.write("Date,Open,High,Low,Close,Volume\n")
-    f = open("/Users/dorukkorkmaz/Documents/GitHub/coinbot/binance_bot/account_info.txt", 'r')
+    f = open("binance/account_info", 'r')
     message = f.read().split("\n")
     client = Client(message[0], message[1])
     klines = client.get_historical_klines(currency, period, start, end)
